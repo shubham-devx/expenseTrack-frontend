@@ -93,6 +93,11 @@ const fetchExpenses = useCallback(async () => {
   }
 }, [selectedMonth, selectedYear]);
 
+useEffect(() => {
+  fetchSummary();
+  fetchExpenses();
+}, [fetchSummary, fetchExpenses]);
+
   const getColor = () => {
     if (!summary) return "green";
     const percent = Number(summary.percentage);
