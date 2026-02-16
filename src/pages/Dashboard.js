@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 
@@ -71,32 +71,26 @@ function Dashboard() {
   };
 
   // ================= FETCH DATA =================
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
   try {
     const res = await api.get(
       `/expense/summary?month=${selectedMonth}&year=${selectedYear}`
     );
     setSummary(res.data);
   } catch (err) {
-    console.log("Summary error:", err);
+    console.log(err);
   }
-};
+}, [selectedMonth, selectedYear]);
 
-const fetchExpenses = async () => {
+const fetchExpenses = useCallback(async () => {
   try {
     const res = await api.get(
       `/expense/list?month=${selectedMonth}&year=${selectedYear}`
     );
     setExpenses(res.data);
   } catch (err) {
-    console.log("Expense list error:", err);
+    console.log(err);
   }
-};
-
- 
-useEffect(() => {
-  fetchSummary();
-  fetchExpenses();
 }, [selectedMonth, selectedYear]);
 
   const getColor = () => {
