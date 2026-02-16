@@ -93,10 +93,7 @@ const fetchExpenses = async () => {
   }
 };
 
-  useEffect(() => {
-  fetchUser();
-}, []);
-
+ 
 useEffect(() => {
   fetchSummary();
   fetchExpenses();
